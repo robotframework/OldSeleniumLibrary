@@ -67,7 +67,8 @@ def start_selenium_server(logfile, jarpath=None, *params):
                            'is available on Python/Jython 2.5 or newer')
     if not jarpath:
         jarpath = os.path.join(os.path.dirname(__file__), 'lib',
-                               'selenium-server.jar')
+                               'selenium-server.jar') + os.path.pathsep + os.path.join(os.path.dirname(__file__), 'lib',
+                               'flashselenium-java-client-extension-1.0.jar')
     subprocess.Popen(['java', '-jar', jarpath] + list(params),
                      stdout=logfile, stderr=subprocess.STDOUT)
 
