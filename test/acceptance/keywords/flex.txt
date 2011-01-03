@@ -1,0 +1,42 @@
+*Settings*
+Suite Setup  Open Flex Application
+Test Setup  Select Flex Application  ${APP ID}
+Resource  ../resource.txt
+
+*Variables*
+${APP ID}  test_app_object  # use test_app_embed with firefox
+
+*Test cases*
+Using Flex commands without selecting application
+  [Setup]
+  [Documentation]  FAIL  No Flex application selected.
+  Click Flex Element  button
+
+Text in flex should be
+  Text In Flex Should Be  input_field  testing
+  Text In Flex Should Be  hello_label  Hello Flex!
+  Text In Flex Should Be  upper_button  Upper
+
+Text in flex should be fails
+  [Documentation]  FAIL ERROR: Expected "Hi Silverlight!", got "Hello Flex!"
+  Text In Flex Should Be  hello_label  Hi Silverlight!
+
+Text in flex should when element doesn't exist
+  [Documentation]  FAIL ERROR: The chain 'name:non_existing' was not found.
+  Text In Flex Should Be  non_existing  Whatever
+
+Input text  
+  Input Text Into Flex   input_field  RF <3 FP
+  Text In Flex Should Be  input_field  RF &lt;3 FP
+
+Click Element
+  Input Text Into Flex  input_field  uppercase?
+  Click Flex Element  upper_button
+  Click Flex Element  OK
+  Text In Flex Should Be  input_field  UPPERCASE?
+  
+    
+*Keywords*
+Open Flex Application
+    Go To  ${ROOT}flex/flex.html
+
