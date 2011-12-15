@@ -1,8 +1,12 @@
 syntax:glob
+
 .project
 .pydevproject
-test/results
 *.pyc
 
 dist
 build
+test/results
+demo/output.xml
+demo/selenium_log.txt
+
