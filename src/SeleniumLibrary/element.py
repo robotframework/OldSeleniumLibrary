@@ -305,3 +305,12 @@ class Element(RunOnFailure):
         """
         if self._selenium.is_editable(locator):
             raise AssertionError("Element '%s' is enabled." % (locator))
+
+    def highlight_element(self, locator):
+        """Highlights element found with `locator` briefly.
+
+        This is mainly useful for debugging purposes.
+
+        This keyword was added in SeleniumLibrary 2.8.1
+        """
+        self._selenium.highlight(self._parse_locator(locator))
