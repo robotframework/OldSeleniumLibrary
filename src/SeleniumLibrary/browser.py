@@ -71,16 +71,18 @@ class Browser(RunOnFailure):
         For more information see:
         http://selenium-grid.seleniumhq.org/faq.html#i_get_some_strange_errors_when_i_run_multiple_internet_explorer_instances_on_the_same_machine
         """
-        self._info("Opening browser '%s' to base url '%s'" % (browser, url))
-        browser = self._get_browser(browser)
-        self._selenium = selenium(self._server_host, self._server_port, browser,
-                                  url)
-        self._connect_to_selenium_server(self._browser_options(browser))
-        self._selenium.set_timeout(self._timeout * 1000)
+        self._selenium = self._create_browser_session(browser, url)
+        index = self._cache.register(self._selenium, alias)
         self._selenium.open(url, ignoreResponseCode=True)
         self._debug('Opened browser with Selenium session id %s'
                     % self._selenium.sessionId)
-        return self._cache.register(self._selenium, alias)
+        return index
+
+    def _create_browser_session(self, browser, url):
+        self._info("Opening browser '%s' to base url '%s'" % (browser, url))
+        session = self._connect(self._get_browser(browser), url)
+        session.set_timeout(self._timeout * 1000)
+        return session
 
     def _get_browser(self, browser):
         return BROWSER_ALIASES.get(browser.lower().replace(' ', ''), browser)
@@ -90,17 +92,17 @@ class Browser(RunOnFailure):
             return 'commandLineFlags=--disable-web-security'
         return ''
 
-    def _connect_to_selenium_server(self, options):
+    def _connect(self, browser, url):
+        session = selenium(self._server_host, self._server_port, browser, url)
         timeout = time.time() + SELENIUM_CONNECTION_TIMEOUT
         while time.time() < timeout:
             try:
-                self._selenium.start(options)
+                session.start(self._browser_options(browser))
             # AssertionError occurs on Jython: http://bugs.jython.org/issue1697
             except (socket.error, AssertionError):
                 time.sleep(2)
             else:
-                return
-        self._selenium = NoBrowserOpen()
+                return session
         raise RuntimeError("Could not connect to Selenium Server in %d seconds. "
                            "Please make sure Selenium Server is running."
                            % SELENIUM_CONNECTION_TIMEOUT)
