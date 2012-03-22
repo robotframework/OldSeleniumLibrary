@@ -29,7 +29,7 @@ Run on Failure Returns Previous Value
     Should Be Equal  ${old}  Capture Screenshot
 
 Run Only Once per Failure
-    [Documentation]  LOG 2.1:2 REGEXP: </td></tr><tr><td colspan="3"><a href="selenium-screenshot-\\d.png"><img src="selenium-screenshot-\\d.png" width="800px"></a> LOG 2.1:4 NONE
+    [Documentation]  LOG 3.1:2 REGEXP: </td></tr><tr><td colspan="3"><a href="selenium-screenshot-\\d.png"><img src="selenium-screenshot-\\d.png" width="800px"></a> LOG 3.1:4 NONE
     [Setup]  Go To Page "frames/frameset.html"
     Register Keyword to Run on Failure  Capture Screenshot
     Run Keyword And Expect Error  Page should have contained text 'Not found' but did not  Frame Should Contain  right  Not found  loglevel=NONE
