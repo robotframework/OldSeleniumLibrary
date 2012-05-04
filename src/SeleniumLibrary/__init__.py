@@ -49,7 +49,7 @@ FIREFOX_DEFAULT_PROFILE = 'DEFAULT'
 FIREFOX_TEMPLATE_ARG = '-firefoxProfileTemplate'
 
 
-def start_selenium_server(logfile, jarpath=None, *params):
+def start_selenium_server(logfile=None, jarpath=None, *params):
     """A hook to start the Selenium Server provided with SeleniumLibrary.
 
     `logfile` must be either an opened file (or file-like object) or None. If
@@ -73,9 +73,14 @@ def start_selenium_server(logfile, jarpath=None, *params):
     """
     if not subprocess:
         raise RuntimeError('This function requires `subprocess` module which '
-                           'is available on Python/Jython 2.5 or newer')
+                           'is available on Python/Jython 2.5 or newer.')
     cmd = _server_startup_command(jarpath, *params)
-    subprocess.Popen(cmd, stdout=logfile, stderr=subprocess.STDOUT)
+    try:
+        subprocess.Popen(cmd, stdout=logfile, stderr=subprocess.STDOUT)
+    except OSError:
+        raise RuntimeError('Starting Selenium Server failed. Check that you '
+                           'have Java 1.5 or newer installed by running '
+                           '`java -version` on the command prompt.')
     print 'Selenium Server started with command "%s" ' % ' '.join(cmd)
 
 def _server_startup_command(jarpath, *params):
