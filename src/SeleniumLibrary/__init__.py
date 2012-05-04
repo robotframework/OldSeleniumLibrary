@@ -49,7 +49,7 @@ FIREFOX_DEFAULT_PROFILE = 'DEFAULT'
 FIREFOX_TEMPLATE_ARG = '-firefoxProfileTemplate'
 
 
-def start_selenium_server(logfile, jarpath=None, *params):
+def start_selenium_server(logfile=None, jarpath=None, *params):
     """A hook to start the Selenium Server provided with SeleniumLibrary.
 
     `logfile` must be either an opened file (or file-like object) or None. If
