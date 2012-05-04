@@ -30,7 +30,7 @@ REBOT_ARGS = [
 '--name', '%(browser)sSPAcceptanceSPTests',
 '--escape', 'space:SP',
 '--critical', 'regression',
-'--noncritical', 'inprogress',
+'--noncritical', 'knownissue',
 ]
 ARG_VALUES = {'outdir': RESULTDIR, 'pythonpath': SRCDIR}
 

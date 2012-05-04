@@ -53,6 +53,7 @@ Click button created with <button> by tag content
 
 Choose File
     [Setup]   Navigate To File Upload Form And Create Temp File To Upload
+    [Tags]    Known Issue
     Choose File   file_to_upload   ${CURDIR}${/}temp.txt
     Text Field Value Should Be   file_to_upload   ${CURDIR}${/}temp.txt
     [Teardown]  Remove File   ${CURDIR}${/}temp.txt

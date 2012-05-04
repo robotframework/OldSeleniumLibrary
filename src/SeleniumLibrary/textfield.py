@@ -90,6 +90,9 @@ class TextField(RunOnFailure):
         The support for remote files was added in SeleniumLibrary 2.3.2.
         It uses Selenium's `attach_file` method which is explained at
         http://saucelabs.com/blog/index.php/2009/11/selenium-tip-of-the-week-upload-files-on-browsers-running-over-remote-machines/
+
+        Note: This keyword does not seem to work with newer versions of Firefox.
+        `Press Key` can be used to type characters into file upload form.
         """
         if file_path.startswith(('http://', 'https://')):
             self._selenium.attach_file(identifier, file_path)
