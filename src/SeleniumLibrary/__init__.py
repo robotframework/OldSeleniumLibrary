@@ -75,7 +75,12 @@ def start_selenium_server(logfile=None, jarpath=None, *params):
         raise RuntimeError('This function requires `subprocess` module which '
                            'is available on Python/Jython 2.5 or newer.')
     cmd = _server_startup_command(jarpath, *params)
-    subprocess.Popen(cmd, stdout=logfile, stderr=subprocess.STDOUT)
+    try:
+        subprocess.Popen(cmd, stdout=logfile, stderr=subprocess.STDOUT)
+    except OSError:
+        raise RuntimeError('Starting Selenium Server failed. Check that you '
+                           'have Java 1.5 or newer installed by running '
+                           '`java -version` on the command prompt.')
     print 'Selenium Server started with command "%s" ' % ' '.join(cmd)
 
 def _server_startup_command(jarpath, *params):
