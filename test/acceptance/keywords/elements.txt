@@ -33,3 +33,6 @@ Get Vertical Position
     Should Be True  ${pos} > ${0}
     Run Keyword And Expect Error  Could not determine position for 'non-existent'  Get Horizontal Position  non-existent
 
+Get Inner HTML
+    ${inner}=   Get Inner HTML    foo
+    Should Be Equal    ${inner}    <img src="robot.png">&nbsp;Text and image

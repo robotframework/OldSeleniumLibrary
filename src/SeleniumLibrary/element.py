@@ -140,6 +140,16 @@ class Element(RunOnFailure):
         """
         return self._selenium.get_text(self._parse_locator(locator))
 
+    def get_inner_html(self, locator):
+        """Returns inner HTML of element identified by `locator`.
+
+        See `introduction` for details about locating elements.
+
+        New in SeleniumLibrary 2.9.
+        """
+        js = "this.browserbot.findElement('%s').innerHTML" % locator
+        return self.execute_javascript(js).strip()
+
     def focus(self, locator):
         """Sets focus to element identified by `locator`.
 
