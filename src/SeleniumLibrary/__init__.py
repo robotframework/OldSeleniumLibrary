@@ -73,7 +73,7 @@ def start_selenium_server(logfile=None, jarpath=None, *params):
     """
     if not subprocess:
         raise RuntimeError('This function requires `subprocess` module which '
-                           'is available on Python/Jython 2.5 or newer')
+                           'is available on Python/Jython 2.5 or newer.')
     cmd = _server_startup_command(jarpath, *params)
     subprocess.Popen(cmd, stdout=logfile, stderr=subprocess.STDOUT)
     print 'Selenium Server started with command "%s" ' % ' '.join(cmd)
