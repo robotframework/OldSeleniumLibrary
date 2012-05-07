@@ -14,31 +14,37 @@ SRCDIR = os.path.join(ROOT, '..', 'src')
 UTESTDIR = os.path.join(ROOT, 'unit')
 RESULTDIR = os.path.join(ROOT, 'results')
 HTPPSERVER = os.path.join(RESOURCEDIR, 'testserver', 'testserver.py')
-ROBOT_ARGS = [
-'--doc', 'SeleniumSPacceptanceSPtestsSPwithSP%(browser)s',
-'--outputdir', '%(outdir)s',
-'--variable', 'browser:%(browser)s',
-'--escape', 'space:SP',
-'--report', 'none',
-'--log', 'none',
-#'--suite', '...',
-'--loglevel', 'DEBUG',
-'--pythonpath', '%(pythonpath)s',
-]
-REBOT_ARGS = [
-'--outputdir', '%(outdir)s',
-'--name', '%(browser)sSPAcceptanceSPTests',
-'--escape', 'space:SP',
-'--critical', 'regression',
-'--noncritical', 'knownissue',
-]
+IS_WINDOWS = os.sep == '\\'
+
 ARG_VALUES = {'outdir': RESULTDIR, 'pythonpath': SRCDIR}
+ROBOT_ARGS = (a % ARG_VALUES for a in (
+    '--doc', 'SeleniumSPacceptanceSPtestsSPwithSP%(browser)s',
+    '--outputdir', '%(outdir)s',
+    '--variable', 'browser:%(browser)s',
+    '--escape', 'space:SP',
+    '--report', 'none',
+    '--log', 'none',
+    '--loglevel', 'DEBUG',
+    '--pythonpath', '%(pythonpath)s')
+)
+REBOT_ARGS = (a % ARG_VALUES for a in (
+    '--outputdir', '%(outdir)s',
+    '--output', 'output.xml',
+    '--name', '%(browser)sSPAcceptanceSPTests',
+    '--escape', 'space:SP',
+    '--critical', 'regression',
+    '--noncritical', 'knownissue')
+)
 
 
 def acceptance_tests(interpreter, browser, args):
     ARG_VALUES['browser'] = browser.replace('*', '')
     start_http_server()
-    runner = {'python': 'pybot', 'jython': 'jybot', 'ipy': 'ipybot'}[interpreter]
+    runner = {
+            'python': 'pybot',
+            'jython': 'jybot',
+            'ipy': 'ipybot'
+        }[interpreter]
     if os.sep == '\\':
         runner += '.bat'
     execute_tests(runner)
@@ -47,16 +53,17 @@ def acceptance_tests(interpreter, browser, args):
 
 def start_http_server():
     server_output = TemporaryFile()
-    Popen(['python', HTPPSERVER ,'start'],
+    Popen(['python', HTPPSERVER, 'start'],
           stdout=server_output, stderr=server_output)
 
 def execute_tests(runner):
     if not os.path.exists(RESULTDIR):
         os.mkdir(RESULTDIR)
-    command = [runner] + [arg % ARG_VALUES for arg in ROBOT_ARGS] + args + [TESTDATADIR]
+    command = [runner] + ROBOT_ARGS + args + [TESTDATADIR]
     print 'Starting test execution with command:\n' + ' '.join(command)
     syslog = os.path.join(RESULTDIR, 'syslog.txt')
-    call(command, shell=os.sep=='\\', env=dict(os.environ, ROBOT_SYSLOG_FILE=syslog))
+    call(command, shell=IS_WINDOWS,
+         env=dict(os.environ, ROBOT_SYSLOG_FILE=syslog))
 
 def stop_http_server():
     call(['python', HTPPSERVER, 'stop'])
@@ -66,8 +73,8 @@ def process_output():
     call(['python', os.path.join(RESOURCEDIR, 'statuschecker.py'),
          os.path.join(RESULTDIR, 'output.xml')])
     rebot = 'rebot' if os.sep == '/' else 'rebot.bat'
-    rebot_cmd = [rebot] + [ arg % ARG_VALUES for arg in REBOT_ARGS ] + \
-                [os.path.join(ARG_VALUES['outdir'], 'output.xml') ]
+    rebot_cmd = [rebot] + REBOT_ARGS +\
+            [os.path.join(ARG_VALUES['outdir'], 'output.xml')]
     rc = call(rebot_cmd, env=os.environ)
     if rc == 0:
         print 'All critical tests passed'
@@ -88,13 +95,13 @@ def _run_unit_tests():
     print 'Running unit tests'
     failures = run_unit_tests()
     if failures != 0:
-        print '\n%d unit tests failed - not running acceptance tests!' % failures
+        print '\n%d unit tests failed - skipping acceptance tests!' % failures
     else:
         print 'All unit tests passed'
     return failures
 
 
-if __name__ ==  '__main__':
+if __name__ == '__main__':
     if not len(sys.argv) > 2:
         _exit(_help())
     unit_failures = _run_unit_tests()
