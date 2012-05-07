@@ -17,24 +17,29 @@ HTPPSERVER = os.path.join(RESOURCEDIR, 'testserver', 'testserver.py')
 IS_WINDOWS = os.sep == '\\'
 
 ARG_VALUES = {'outdir': RESULTDIR, 'pythonpath': SRCDIR}
-ROBOT_ARGS = (a % ARG_VALUES for a in (
-    '--doc', 'SeleniumSPacceptanceSPtestsSPwithSP%(browser)s',
-    '--outputdir', '%(outdir)s',
-    '--variable', 'browser:%(browser)s',
-    '--escape', 'space:SP',
-    '--report', 'none',
-    '--log', 'none',
-    '--loglevel', 'DEBUG',
-    '--pythonpath', '%(pythonpath)s')
-)
-REBOT_ARGS = (a % ARG_VALUES for a in (
-    '--outputdir', '%(outdir)s',
-    '--output', 'output.xml',
-    '--name', '%(browser)sSPAcceptanceSPTests',
-    '--escape', 'space:SP',
-    '--critical', 'regression',
-    '--noncritical', 'knownissue')
-)
+
+
+def robot_args():
+    return [a % ARG_VALUES for a in (
+        '--doc', 'SeleniumSPacceptanceSPtestsSPwithSP%(browser)s',
+        '--outputdir', '%(outdir)s',
+        '--variable', 'browser:%(browser)s',
+        '--escape', 'space:SP',
+        '--report', 'none',
+        '--log', 'none',
+        '--loglevel', 'DEBUG',
+        '--pythonpath', '%(pythonpath)s')
+    ]
+
+def rebot_args():
+    return  [a % ARG_VALUES for a in (
+        '--outputdir', '%(outdir)s',
+        '--output', 'output.xml',
+        '--name', '%(browser)sSPAcceptanceSPTests',
+        '--escape', 'space:SP',
+        '--critical', 'regression',
+        '--noncritical', 'knownissue')
+    ]
 
 
 def acceptance_tests(interpreter, browser, args):
@@ -59,7 +64,7 @@ def start_http_server():
 def execute_tests(runner):
     if not os.path.exists(RESULTDIR):
         os.mkdir(RESULTDIR)
-    command = [runner] + ROBOT_ARGS + args + [TESTDATADIR]
+    command = [runner] + robot_args() + args + [TESTDATADIR]
     print 'Starting test execution with command:\n' + ' '.join(command)
     syslog = os.path.join(RESULTDIR, 'syslog.txt')
     call(command, shell=IS_WINDOWS,
@@ -73,7 +78,7 @@ def process_output():
     call(['python', os.path.join(RESOURCEDIR, 'statuschecker.py'),
          os.path.join(RESULTDIR, 'output.xml')])
     rebot = 'rebot' if os.sep == '/' else 'rebot.bat'
-    rebot_cmd = [rebot] + REBOT_ARGS +\
+    rebot_cmd = [rebot] + rebot_args() +\
             [os.path.join(ARG_VALUES['outdir'], 'output.xml')]
     rc = call(rebot_cmd, env=os.environ)
     if rc == 0:
