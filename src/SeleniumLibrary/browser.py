@@ -28,7 +28,7 @@ BROWSER_ALIASES = {'ff': '*firefox',
                    'googlechrome': '*googlechrome',
                    'opera': '*opera',
                    'safari': '*safari'}
-SELENIUM_CONNECTION_TIMEOUT = 40
+SELENIUM_CONNECTION_TIMEOUT = 120
 
 
 class Browser(RunOnFailure):
@@ -61,14 +61,13 @@ class Browser(RunOnFailure):
         | opera            | Opera |
 
         Additionally, a string like `*custom /path/to/browser-executable` can
-        be used to specify the browser directly. In this case, the path needs to
-        point to an executable, not a script, otherwise the library may not be
-        able to shut down the browser properly.
+        be used to specify the browser directly. In this case, the path needs
+        to point to an executable, not a script, otherwise the library may not
+        be able to shut down the browser properly.
 
-        Note, that you will encounter strange behavior, if you open
-        multiple Internet Explorer browser instances. That is also why
-        `Switch Browser` only works with one IE browser at most.
-        For more information see:
+        Note, that you will encounter strange behavior, if you open multiple
+        Internet Explorer browser instances. That is also why `Switch Browser`
+        only works with one IE browser at most.  For more information see:
         http://selenium-grid.seleniumhq.org/faq.html#i_get_some_strange_errors_when_i_run_multiple_internet_explorer_instances_on_the_same_machine
         """
         self._selenium = self._create_browser_session(browser, url)
@@ -208,8 +207,8 @@ class Browser(RunOnFailure):
     def go_back(self, dont_wait=''):
         """Simulates the user clicking the "back" button on their browser.
 
-        See `introduction` for details about locating elements and about meaning
-        of `dont_wait` argument."""
+        See `introduction` for details about locating elements and about
+        meaning of `dont_wait` argument."""
         self._selenium.go_back()
         if not dont_wait:
             self.wait_until_page_loaded()
@@ -234,11 +233,12 @@ class Browser(RunOnFailure):
         """Selects the window found with `locator` as the context of actions.
 
         If the window is found, all subsequent commands use that window, until
-        this keyword is used again. If the window is not found, this keyword fails.
+        this keyword is used again. If the window is not found, this keyword
+        fails.
 
-        `locator` may be either the title of the window or the name of the window
-        in the JavaScript code that creates it. If multiple windows with
-        same identifier are found, the first one is selected.
+        `locator` may be either the title of the window or the name of the
+        window in the JavaScript code that creates it. If multiple windows
+        with same identifier are found, the first one is selected.
 
         Special locator `main` (default) can be used to select the main window.
 
