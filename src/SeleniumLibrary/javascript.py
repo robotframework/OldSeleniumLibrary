@@ -38,7 +38,7 @@ class JavaScript(RunOnFailure):
         Use `window` to refer to the window of your application, e.g.
         `window.document.getElementById('foo')`.
 
-        Example:
+        Examples:
         | Execute JavaScript | window.my_js_function('arg1', 'arg2') |
         | Execute JavaScript | ${CURDIR}/js_to_execute.js |
         """
@@ -98,7 +98,6 @@ class JavaScript(RunOnFailure):
         confirmation dialog to be shown.
 
         Examples:
-
         | Click Button | Send | # Shows a confirmation dialog |
         | ${message}= | Confirm Action | # Chooses Ok |
         | Should Be Equal | ${message} | Are your sure? |
