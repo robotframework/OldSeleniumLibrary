@@ -87,9 +87,10 @@ class Browser(RunOnFailure):
         return BROWSER_ALIASES.get(browser.lower().replace(' ', ''), browser)
 
     def _browser_options(self, browser):
+        options = 'addCustomRequestHeaders=true'
         if browser == '*googlechrome':
-            return 'commandLineFlags=--disable-web-security'
-        return ''
+            options += ' commandLineFlags=--disable-web-security'
+        return options
 
     def _connect(self, browser, url):
         session = selenium(self._server_host, self._server_port, browser, url)
