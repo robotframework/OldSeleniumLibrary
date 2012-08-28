@@ -86,18 +86,15 @@ class Browser(RunOnFailure):
     def _get_browser(self, browser):
         return BROWSER_ALIASES.get(browser.lower().replace(' ', ''), browser)
 
-    def _browser_options(self, browser):
-        options = 'addCustomRequestHeaders=true'
-        if browser == '*googlechrome':
-            options += ' commandLineFlags=--disable-web-security'
-        return options
+    def _browser_options(self):
+        return 'addCustomRequestHeaders=true'
 
     def _connect(self, browser, url):
         session = selenium(self._server_host, self._server_port, browser, url)
         timeout = time.time() + SELENIUM_CONNECTION_TIMEOUT
         while time.time() < timeout:
             try:
-                session.start(self._browser_options(browser))
+                session.start(self._browser_options())
             # AssertionError occurs on Jython: http://bugs.jython.org/issue1697
             except (socket.error, AssertionError):
                 time.sleep(2)
