@@ -86,8 +86,17 @@ def start_selenium_server(logfile=None, jarpath=None, *params):
 def _server_startup_command(jarpath, *params):
     if not jarpath:
         jarpath = SELENIUM_SERVER_PATH
+    params = list(params)
+    jvm_opts, params = _extract_jvm_params(params)
     params = _add_default_user_extension(jarpath, list(params))
-    return ['java', '-jar', jarpath] + _server_startup_params(params)
+    return ['java'] + jvm_opts + ['-jar', jarpath] + _server_startup_params(params)
+
+def _extract_jvm_params(params):
+    for p in params[:]:
+        if p[:4].upper() == 'JVM=':
+            params.remove(p)
+            return p[4:].split(), params
+    return [], params
 
 def _add_default_user_extension(jarpath, params):
     extpath = os.path.join(os.path.dirname(jarpath), 'user-extensions.js')
@@ -317,10 +326,7 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
         `-firefoxProfileTemplate` option. You can override this
         profile with your own custom profile by using the same argument
         in `params` yourself. To use the default profile on your machine,
-        use this argument with `DEFAULT` value (case-sensitive). Using a
-        custom Firefox profile automatically is a new feature in
-        SeleniumLibrary 2.5. For more information see
-        http://code.google.com/p/robotframework-seleniumlibrary/wiki/CustomFirefoxProfile
+        use this argument with `DEFAULT` value (case-sensitive).
 
         3) Starting from SeleniumLibrary 2.6, if there is `user-extensions.js`
         file in the same directory as Selenium Server jar, it is loaded using
@@ -328,11 +334,16 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
         defined in `params`.  By default, such extension file providing Flex
         testing support is loaded automatically.
 
+        Special syntax `JVM=some jvm opts` can be used to define options to
+        the java command itself used to start the selenium server. This
+        possibility was added in SeleniumLibrary 2.9.1.
+
         Examples:
         | Start Selenium Server | | | # Default settings. Uses the Firefox profile supplied with the library. |
         | Start Selenium Server | -firefoxProfileTemplate | C:\\\\the\\\\path | # Uses custom Firefox profile. |
         | Start Selenium Server | -firefoxProfileTemplate | DEFAULT | # Uses default Firefox profile on your machine. |
         | Start Selenium Server | -avoidProxy | -ensureCleanSession | # Uses various Selenium Server settings. |
+        | Start Selenium Server | -JVM=-DserverName=somehost | # Define JVM options. |
 
         All Selenium Server output is written into `selenium_server_log.txt`
         file in the same directory as the Robot Framework log file.

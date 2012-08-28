@@ -2,9 +2,8 @@ import unittest
 import os
 
 from SeleniumLibrary import (SeleniumLibrary, _server_startup_command,
-                             _server_startup_params,
-                             FIREFOX_TEMPLATE_ARG, FIREFOX_PROFILE_DIR,
-                             FIREFOX_DEFAULT_PROFILE, SELENIUM_SERVER_PATH)
+        _server_startup_params, FIREFOX_TEMPLATE_ARG, FIREFOX_PROFILE_DIR,
+        FIREFOX_DEFAULT_PROFILE, SELENIUM_SERVER_PATH)
 
 
 class TestGetBrowser(unittest.TestCase):
@@ -21,15 +20,17 @@ class TestGetBrowser(unittest.TestCase):
             self.assertEquals(self.lib._get_browser(alias), '*firefox')
 
     def test_non_alias_is_not_modified(self):
-        for non_alias in ['FIREFUX', 'i e 8', 'C:\\Program Files\\mybrowser\\brow.exe',
-                          '{"username": "user", "access-key": "7A9cea40-84f7-4d3b-8748-0e94fCd4dX4f"}']:
+        for non_alias in [
+                'FIREFUX',
+                'i e 8',
+                'C:\\Program Files\\mybrowser\\brow.exe',
+                '{"username": "user", "access-key": "7A9cea40-84f7-4d3b-8748-0e94fCd4dX4f"}']:
             self.assertEquals(self.lib._get_browser(non_alias), non_alias)
 
     def test_patched_remote_control(self):
         rc_path = os.path.join(os.path.dirname(__file__), '..', '..', 'src',
                                'SeleniumLibrary', 'selenium.py')
         self.assertTrue('conn.close()' in open(rc_path).read())
-
 
 
 class TestServerArguments(unittest.TestCase):
@@ -47,17 +48,23 @@ class TestServerArguments(unittest.TestCase):
                           [FIREFOX_TEMPLATE_ARG, FIREFOX_PROFILE_DIR])
 
     def test_given_profile_is_not_overridden(self):
-        self.assertEquals(_server_startup_params([FIREFOX_TEMPLATE_ARG, 'foo']),
-                          [FIREFOX_TEMPLATE_ARG, 'foo'])
+        params = _server_startup_params([FIREFOX_TEMPLATE_ARG, 'foo'])
+        self.assertEquals(params, [FIREFOX_TEMPLATE_ARG, 'foo'])
 
     def test_real_default_profile_can_be_used(self):
-        params = [FIREFOX_TEMPLATE_ARG,FIREFOX_DEFAULT_PROFILE]
+        params = [FIREFOX_TEMPLATE_ARG, FIREFOX_DEFAULT_PROFILE]
         self.assertEquals(_server_startup_params(params), [])
 
     def test_other_options_are_preserved(self):
         params = ['-someOpt', 'value', '-otherOpt']
         self.assertEquals(_server_startup_params(params),
-                          ['-someOpt', 'value', '-otherOpt', FIREFOX_TEMPLATE_ARG, FIREFOX_PROFILE_DIR])
+                          params + [FIREFOX_TEMPLATE_ARG, FIREFOX_PROFILE_DIR])
+
+    def test_jvm_options(self):
+        params = ['-foo', 'bar', 'jvm=-DsysProp=bar -Dht.Tp=qx']
+        expected = ['java', '-DsysProp=bar', '-Dht.Tp=qx', '-jar',
+                    SELENIUM_SERVER_PATH, '-foo', 'bar']
+        self.assertEquals(_server_startup_command(None, *params)[:7], expected)
 
 
 class TestInitialization(unittest.TestCase):
