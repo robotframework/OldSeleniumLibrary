@@ -30,7 +30,7 @@ must be done
   '/usr/lib/python[version]/site-packages/SeleniumLibrary/lib' 
 
 
-__ http://code.google.com/p/robotframework/wiki/UserGuide
+__ http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html
 
 
 Installation
