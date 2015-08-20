@@ -36,8 +36,9 @@ __ http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html
 Installation
 ------------
 
-See [INSTALL.rst](INSTALL.rst) for installation and uninstallation instructions.
+See `INSTALL.rst`__ for installation and uninstallation instructions.
 
+__ INSTALL.rst
 
 Directory Layout
 -----------------
@@ -57,4 +58,5 @@ test/
 
 .. _Selenium: http://selenium.openqa.org
 .. _Selenium-RC: http://selenium-rc.openqa.org
+
 
