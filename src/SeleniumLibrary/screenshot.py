@@ -15,7 +15,10 @@
 import os
 import base64
 
-from robot import utils
+try:
+    from robot.utils import get_link_path
+except ImportError:
+    from os.path import relpath as get_link_path
 
 
 class Screenshot(object):
@@ -82,5 +85,5 @@ class Screenshot(object):
             filename = filename.replace('/', os.sep)
         logdir = self._get_log_dir()
         path = os.path.join(logdir, filename)
-        link = utils.get_link_path(path, logdir)
+        link = get_link_path(path, logdir)
         return path, link
