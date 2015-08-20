@@ -343,7 +343,7 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
         | Start Selenium Server | -firefoxProfileTemplate | C:\\\\the\\\\path | # Uses custom Firefox profile. |
         | Start Selenium Server | -firefoxProfileTemplate | DEFAULT | # Uses default Firefox profile on your machine. |
         | Start Selenium Server | -avoidProxy | -ensureCleanSession | # Uses various Selenium Server settings. |
-        | Start Selenium Server | -JVM=-DserverName=somehost | # Define JVM options. |
+        | Start Selenium Server | JVM=-DserverName=somehost | # Define JVM options. |
 
         All Selenium Server output is written into `selenium_server_log.txt`
         file in the same directory as the Robot Framework log file.
