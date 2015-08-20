@@ -12,7 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from robot import utils
+try:
+    from robot.utils import attribute_escape
+except ImportError:
+    from robot.utils import html_attr_escape as attribute_escape
 
 
 class LocatorParser:
@@ -40,7 +43,7 @@ class LocatorParser:
     def locator_for(self, locator, tagname):
         if self._is_predefined_strategy(locator):
             return locator
-        locator = utils.html_attr_escape(locator)
+        locator = attribute_escape(locator)
         tagname = self._synonyms.get(tagname, tagname)
         if tagname not in self._tag_attributes:
             return locator
