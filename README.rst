@@ -36,7 +36,7 @@ __ http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html
 Installation
 ------------
 
-See INSTALLATION.txt for installation and uninstallation instructions.
+See [INSTALL.rst](INSTALL.rst) for installation and uninstallation instructions.
 
 
 Directory Layout
