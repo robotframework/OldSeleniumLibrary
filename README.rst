@@ -1,6 +1,10 @@
 Selenium test library for Robot Framework
 =========================================
 
+This library is **deprecated**. Please use `Selenium2Library`__ instead.
+
+__ https://github.com/rtomac/robotframework-selenium2library/
+
 Introduction
 ------------
 
