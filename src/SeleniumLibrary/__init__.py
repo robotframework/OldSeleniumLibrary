@@ -21,7 +21,7 @@ try:
 except ImportError:
     subprocess = None  # subprocess not available on Python/Jython < 2.5
 
-from robot.variables import GLOBAL_VARIABLES
+from robot.libraries.BuiltIn import BuiltIn
 from robot import utils
 from selenium import selenium
 
@@ -362,10 +362,11 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
                    % (logpath.replace('\\', '/'), logpath))
 
     def _get_log_dir(self):
-        logfile = GLOBAL_VARIABLES['${LOG FILE}']
+        variables = BuiltIn().get_variables()
+        logfile = variables['${LOG FILE}']
         if logfile != 'NONE':
             return os.path.dirname(logfile)
-        return GLOBAL_VARIABLES['${OUTPUTDIR}']
+        return variables['${OUTPUTDIR}']
 
     def stop_selenium_server(self):
         """Stops the selenium server (and closes all browsers)."""
