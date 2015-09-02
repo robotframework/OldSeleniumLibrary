@@ -43,7 +43,7 @@ Documentation
 -------------
 
 General library usage and available keywords are documented in `library documentation
-<http://robotframework.org/SeleniumLibrary/SeleniumLibrary.html>`.
+<http://robotframework.org/SeleniumLibrary/SeleniumLibrary.html>`_.
 
 `Wiki <https://github.com/robotframework/SeleniumLibrary/wiki>`_ contains additional
 information.
