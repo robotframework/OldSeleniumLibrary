@@ -3,7 +3,7 @@ Selenium test library for Robot Framework
 
 This library is **deprecated**. Please use `Selenium2Library`__ instead.
 
-__ https://github.com/rtomac/robotframework-selenium2library/
+__ https://github.com/robotframework/Selenium2Library
 
 Introduction
 ------------
@@ -14,7 +14,6 @@ internally. Currently, not all features of Selenium are implemented in
 SeleniumLibrary, but most of them are quite trivial to implement when someone 
 needs them.
 
-
 Usage
 -----
 
@@ -24,21 +23,18 @@ must be done
 - SeleniumLibrary must be taken into use in Robot test data.
   See `Robot Framework user guide`__ for more information.
 - Selenium server must be started with command 
-  ``java -jar [path_to_server]/selenium_server.jar``, 
-  where [path_to_server] depends on platform. On Windows it will be 
-  '[PythonDir]\\Lib\\site-packages\\SeleniumLibrary\\lib' and on Linux it is 
-  '/usr/lib/python[version]/site-packages/SeleniumLibrary/lib' 
-
+  ``java -jar [path_to_server]/selenium_server.jar``, where ``[path_to_server]``
+  depends on platform. On Windows it will be 
+  ``[PythonDir]\Lib\site-packages\SeleniumLibrary\lib`` and on Linux it is
+  typically something like
+  ``/usr/lib/python[version]/site-packages/SeleniumLibrary/lib``. 
 
 __ http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html
-
 
 Installation
 ------------
 
-See `INSTALL.rst`__ for installation and uninstallation instructions.
-
-__ INSTALL.rst
+See `<INSTALL.rst>`__ for installation and uninstallation instructions.
 
 Directory Layout
 -----------------
@@ -55,8 +51,5 @@ src/
 test/
     Acceptance tests for keywords using Robot Framework.
 
-
 .. _Selenium: http://selenium.openqa.org
 .. _Selenium-RC: http://selenium-rc.openqa.org
-
-
