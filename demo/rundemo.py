@@ -28,7 +28,7 @@ normal `pybot` start-up script, as well as investigating the demo application.
 
 Running the demo requires that Robot Framework, SeleniumLibrary, Python, and
 Java to be installed. For more comprehensive instructions, see the demo wiki
-page at `http://code.google.com/p/robotframework-seleniumlibrary/wiki/Demo`.
+page at `https://github.com/robotframework/SeleniumLibrary/wiki/Demo`.
 """
 
 import os

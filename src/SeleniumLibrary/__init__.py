@@ -130,7 +130,7 @@ def shut_down_selenium_server(host='localhost', port=4444):
 
 class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
                       Element, Screenshot, Table, TextField, Flex):
-    """SeleniumLibrary is a web testing library for Robot Test Automation Framework.
+    """SeleniumLibrary is a *deprecated* web testing library for Robot Framework.
 
     It uses the Selenium Remote Control tool internally to control a web browser.
     See http://selenium-rc.openqa.org/ for more information on Selenium tool.
@@ -138,7 +138,7 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
     SeleniumLibrary runs tests in a real browser instance. It should work in
     most modern browsers and can be used with both Python and Jython interpreters.
 
-    *Before running the tests*
+    = Before running the tests =
 
     Prior to running test cases using SeleniumLibrary, the Selenium Server must
     be started. This can be done using keyword `Start Selenium Server` or from
@@ -149,7 +149,7 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
     Browser` keyword must be used in order to open browser in the desired
     location before any other keyword from the library may be used.
 
-    *Locating elements*
+    = Locating elements =
 
     All keywords in SeleniumLibrary that need to find an element on the page
     take an argument, `locator`. In the most common case, `locator` is
@@ -180,12 +180,12 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
     | Table Should Contain | css=h2.someClass ~ table:last-child() | text |
     | Table Should Contain | xpath=//table/[@name="myTable"] | text |
 
-    *Locating Flex elements*
+    = Locating Flex elements =
 
     SeleniumLibary 2.6 and newer support testing Adobe Flex and Flash
     applications using Flex Pilot tool. For more information, including the
     required bootstrapping, see
-    http://code.google.com/p/robotframework-seleniumlibrary/wiki/FlexTesting
+    https://github.com/robotframework/SeleniumLibrary/wiki/FlexTesting
 
     By default Flex elements are located based on `id` they have in Flex source
     code. Other supported locators are `name`, `automationName`, `text`,
@@ -201,7 +201,7 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
     | Click Flex Element | name=wild*   | # Name with wildcard |
     | Click Flex Element | chain=name:*llo/name:world | # Chain with wildcard |
 
-    *Handling page load events*
+    = Handling page load events =
 
     Some keywords that may cause a page to load take an additional argument
     `dont_wait` that is used to determine whether a new page is expected to
@@ -223,7 +223,7 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
     | Select Radio Button | group1 | value1  |          | # A page is not expected to load. |
     | Select Radio Button | group2 | value2  | and wait | # A page is expected to load. |
 
-    *Timeouts*
+    = Timeouts =
 
     How much to wait when a new page is loaded is specified by a timeout
     that can be given in `importing` (default is 5 seconds) or dynamically
@@ -236,14 +236,14 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
     All timeouts can be given as numbers considered seconds (e.g. 0.5 or 42)
     or in Robot Framework's time syntax (e.g. '1.5 seconds' or '1 min 30 s').
     For more information about the time syntax see:
-    http://robotframework.googlecode.com/svn/trunk/doc/userguide/RobotFrameworkUserGuide.html#time-format.
+    http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#time-format.
 
-    *Testing sites using https*
+    = Testing sites using https =
 
     Usually, https works out of the box. However, there may be trouble with
     self-signed certificates. We have a Wiki page describing how to test
     against these, using Firefox:
-    http://code.google.com/p/robotframework-seleniumlibrary/wiki/HandlingSelfSignedCertificates
+    https://github.com/robotframework/SeleniumLibrary/wiki/HandlingSelfSignedCertificates
     """
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
@@ -457,7 +457,7 @@ class SeleniumLibrary(Browser, Page, Button, Click, JavaScript, Mouse, Select,
         strategy can be added to locate elements given jQuery selector syntax.
 
         For jQuery selector setup see:
-        http://code.google.com/p/robotframework-seleniumlibrary/wiki/jQueryElementSelectors
+        https://github.com/robotframework/SeleniumLibrary/wiki/jQueryElementSelectors
 
         Example:
         | Add Location Strategy | jquery | return Selenium.prototype.locateElementByJQuerySelector(locator, inDocument, inWindow); |
