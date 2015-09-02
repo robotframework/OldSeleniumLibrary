@@ -1,0 +1,12 @@
+tmp
+build
+dist
+MANIFEST
+test/results
+.idea
+.*project
+*.pyc
+*$py.class
+*.iml
+.DS_Store
+
