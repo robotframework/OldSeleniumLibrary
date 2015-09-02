@@ -46,7 +46,8 @@ General library usage and available keywords are documented in `library document
 <http://robotframework.org/SeleniumLibrary/SeleniumLibrary.html>`_.
 
 `Wiki <https://github.com/robotframework/SeleniumLibrary/wiki>`_ contains additional
-information.
+information. Some information there is outdated, though, and some links point to the
+old `Google Code`_ project.
 
 Directory Layout
 -----------------
