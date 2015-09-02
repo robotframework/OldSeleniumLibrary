@@ -1,5 +1,6 @@
 include MANIFEST.in
 include *.txt
+include *.rst
 include selenium.bmp
 
 include src/SeleniumLibrary/lib/*.jar
@@ -11,4 +12,3 @@ recursive-include demo *.txt *.py *.sh *.bat *.html *.css *.js
 prune demo/reports
 prune demo/selenium_log.txt
 prune demo/output.xml
-
