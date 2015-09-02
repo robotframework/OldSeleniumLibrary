@@ -20,10 +20,10 @@ This projects has been migrated from dying `Google Code
 Installation
 ------------
 
-If you have pip installed, you can install SeleniumLibrary by running:
+If you have pip installed, you can install SeleniumLibrary by running::
 
-    pip install robotframework-seleniumlibrary
-    
+    pip install --upgrade robotframework-seleniumlibrary
+
 For other alternatives and more information in general see `<INSTALL.rst>`__.
 
 Usage
