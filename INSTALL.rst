@@ -23,7 +23,7 @@ Installing using pip
 
 If you have pip installed, you can install SeleniumLibrary by running::
 
-    pip install robotframework-seleniumlibrary
+    pip install --upgrade robotframework-seleniumlibrary
 
 Installing from source
 ----------------------
