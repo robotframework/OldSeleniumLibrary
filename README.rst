@@ -1,18 +1,26 @@
 Selenium test library for Robot Framework
 =========================================
 
-This library is **deprecated**. Please use `Selenium2Library`__ instead.
-
-__ https://github.com/robotframework/Selenium2Library
+This library is **deprecated**. Please use `Selenium2Library
+<https://github.com/robotframework/Selenium2Library>`_ instead.
 
 Introduction
 ------------
 
 SeleniumLibrary is a test library for Robot Framework that enables testing
-of web applications. As the name suggests, it uses Selenium_ via Selenium-RC_
-internally. Currently, not all features of Selenium are implemented in 
-SeleniumLibrary, but most of them are quite trivial to implement when someone 
-needs them.
+of web applications. As the name suggests, it uses `Selenium tool
+<http://selenium.openqa.org>`_ internally. Because it uses the deprecated
+Selenium 1.0 version also the library itself is deprecated. All new projects
+should use Selenium2Library_ and existing users are also recommended to upgrade
+to it.
+
+This projects has been migrated from dying `Google Code
+<http://code.google.com/p/robotframework-seleniumlibrary/>`_.
+
+Installation
+------------
+
+See `<INSTALL.rst>`__ for installation and uninstallation instructions.
 
 Usage
 -----
@@ -21,7 +29,7 @@ To run tests with Robot Framework and SeleniumLibrary following things
 must be done
 
 - SeleniumLibrary must be taken into use in Robot test data.
-  See `Robot Framework user guide`__ for more information.
+  See `Robot Framework User Guide`__ for more information.
 - Selenium server must be started with command 
   ``java -jar [path_to_server]/selenium_server.jar``, where ``[path_to_server]``
   depends on platform. On Windows it will be 
@@ -31,10 +39,14 @@ must be done
 
 __ http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html
 
-Installation
-------------
+Documentation
+-------------
 
-See `<INSTALL.rst>`__ for installation and uninstallation instructions.
+General library usage and available keywords are documented in `library documentation
+<http://robotframework.org/SeleniumLibrary/SeleniumLibrary.html>`.
+
+`Wiki <https://github.com/robotframework/SeleniumLibrary/wiki>`_ contains additional
+information.
 
 Directory Layout
 -----------------
@@ -50,6 +62,3 @@ src/
 
 test/
     Acceptance tests for keywords using Robot Framework.
-
-.. _Selenium: http://selenium.openqa.org
-.. _Selenium-RC: http://selenium-rc.openqa.org
