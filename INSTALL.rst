@@ -6,7 +6,7 @@ Selenium Library distribution contains the actual library code, Selenium
 server as a JAR package and Selenium Python bindings.
 
 SeleniumLibrary 2.9.2 downloads are hosted at `PyPI
-https://pypi.python.org/pypi/robotframework-seleniumlibrary`_.
+<https://pypi.python.org/pypi/robotframework-seleniumlibrary>`_.
 Older releases can be found from the old `Google Code download page
 <http://code.google.com/p/robotframework-seleniumlibrary/downloads/list>`_.
 
