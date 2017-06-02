@@ -47,23 +47,8 @@ Documentation
 -------------
 
 General library usage and available keywords are documented in `library documentation
-<http://robotframework.org/SeleniumLibrary/SeleniumLibrary.html>`_.
+<http://robotframework.org/OldSeleniumLibrary/SeleniumLibrary.html>`_.
 
-`Wiki <https://github.com/robotframework/SeleniumLibrary/wiki>`_ contains additional
+`Wiki <https://github.com/robotframework/OldSeleniumLibrary/wiki>`_ contains additional
 information. Some information there is outdated, though, and some links point to the
 old `Google Code`_ project.
-
-Directory Layout
------------------
-
-demo/
-    A simple demonstration, with an application running on localhost.
-
-doc/
-    Keyword documentation.
-
-src/
-    Python source code.
-
-test/
-    Acceptance tests for keywords using Robot Framework.
